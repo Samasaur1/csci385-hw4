@@ -25,13 +25,39 @@ class SceneCamera {
     }
 
     project(location: Point3d) {
-        const toLocation  = location.minus(this.center);
-        const result = {
-            point: location,
-            projection: new Point2d(-toLocation.dy, toLocation.dz),
-            depth: toLocation.dx
-        };
+        //
+        // Compute the projection information of a `location` in the
+        // scene, given as a `point3d` object. The result gets
+        // reported as a point in 2D along with a depth. These are
+        // found by performing a perspective projection from this
+        // SceneCamera.
+        //
 
-        return result;
+        // STEP 2
+        //
+        // TO DO: compute the projection of a 3D point according to
+        //        this camera's perspective.
+
+        // Depth from the camera to the true point
+        var depth = location.minus(this.center).dot(this.into)
+
+        // Vector from the camera to the projected point
+        var v = location.minus(this.center).div(depth)
+
+        // The projected point, **as a Point3d**
+        var pointIn3d = this.center.plus(v)
+
+        // The origin of the page **as a Point3d**
+        var originIn3d = this.center.plus(this.into)
+
+        // The 2d coordinates of the projected point
+        var x = pointIn3d.minus(originIn3d).dot(this.right)
+        var y = pointIn3d.minus(originIn3d).dot(this.up)
+
+        return {
+            point: location,
+            projection: new Point2d(x, y),
+            depth: depth
+        }
     }
 }
