@@ -328,33 +328,7 @@ class SceneCamera {
         this.into   = new Vector2d( 1.0, 0.0, 0.0);
     }
 
-    project(location) {
-        //
-        // Compute the projection information of a `location` in the
-        // scene, given as a `point3d` object. The result gets
-        // reported as a point in 2D along with a depth. These are
-        // found by performing a perspective projection from this
-        // SceneCamera.
-        //
-
-        // STEP 2
-        //
-        // TO DO: compute the projection of a 3D point according to
-        //        this camera's perspective.
-
-        // STARTER CODE: just performs a orthographic projection as if
-        //               the camera is looking directly along the x
-        //               axis from where it sits.
-        //
-        const toLocation  = location.minus(this.center);
-        const result = {
-            point: location,
-            projection: new Point2d(-toLocation.dy, toLocation.dz),
-            depth: toLocation.dx
-        };
-
-        return result;
-    }
+    project(location) {}
 }
 
 class SceneObject extends CGObject {
