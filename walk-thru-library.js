@@ -31,10 +31,54 @@ function segmentsIntersect(P0,P1,Q0,Q1) {
     // TO DO: compute the whether the segments intersect
     //
     
-    // STARTER CODE: just assumes they intersect at the midpoint of
-    //               segment P0 P1, i.e. s = 1/2.
-    
-    return 0.5; 
+    u = Q1.minus(Q0).unit()
+    v = u.perp()
+
+    O = Q0
+
+    // Now we have a coordinate scheme where Q0 is the origin, +x is towards Q1 and +y is 90 degrees offset
+    // (it doesn't actually matter if +y is up or down)
+
+    x0 = P0.minus(O).dot(u)
+    x1 = P1.minus(O).dot(u)
+    y0 = P0.minus(O).dot(v)
+    y1 = P1.minus(O).dot(v)
+
+    if (y0 * y1 > 0) {
+        // The signs are the same, which means the line segment P is entirely on one side of Q,
+        // so they by definition cannot cross
+        return null
+    }
+
+    s = y0 / (y0 - y1)
+    // s correctly shows the point of intersection, but we haven't yet checked to make sure
+    // that it's actually between Q0 and Q1
+
+    // the following *should* work, but does not
+    /*
+    S = P0.combo(s, P1)
+
+    t = Q0.dist(S) / Q1.dist(S)
+    console.log(t)
+
+    if (t < 0) { return null }
+    if (t > 1) { return null }
+
+    return s
+    */
+
+    // Instead compute y0 and y1 again, but using P0 as the origin instead of Q0
+    u = P1.minus(P0).unit()
+    v = u.perp()
+
+    O = P0
+
+    y0 = Q0.minus(O).dot(v)
+    y1 = Q1.minus(O).dot(v)
+
+    if (y0 * y1 > 0) { return null }
+
+    return s
 }
 
 function rayFacetIntersect(Q1,Q2,Q3,R,Rp) {
