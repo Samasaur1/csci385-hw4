@@ -252,3 +252,4 @@ function ORIGIN2D()   { return new Point2d(0.0,0.0); }
 function X_VECTOR2D() { return new Vector2d(1.0,0.0); }
 function Y_VECTOR2D() { return new Vector2d(0.0,1.0); }
 
+export {Point2d, Vector2d, ORIGIN2D, X_VECTOR2D, Y_VECTOR2D}
