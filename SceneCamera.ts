@@ -3,6 +3,8 @@ import { Point2d as _Point2d, Vector2d } from "./geometry-2d"
 
 const Point2d = _Point2d
 
+export type ProjectionResult = { point: Point3d, projection: _Point2d, depth: number }
+
 class SceneCamera {
     center: Point3d;
     right: Vector3d;
@@ -26,7 +28,7 @@ class SceneCamera {
         this.up = this.right.cross(this.into)
     }
 
-    project(location: Point3d) {
+    project(location: Point3d): ProjectionResult {
         //
         // Compute the projection information of a `location` in the
         // scene, given as a `point3d` object. The result gets

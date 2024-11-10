@@ -4,10 +4,10 @@ all: walk-thru-library.js walk-thru
 	git restore geometry-3d.js
 	git restore geometry-2d.js
 
-walk-thru: SceneCamera.js.tmp
-	gsed -e '/class SceneCamera/{r SceneCamera.js.tmp' -e 'd}' _walk-thru.js > walk-thru.js
+walk-thru: SceneCamera.js.tmp SceneEdge.js.tmp
+	gsed -e '/class SceneCamera/{r SceneCamera.js.tmp' -e 'd}' -e '/class SceneEdge/{r SceneEdge.js.tmp' -e 'd}' _walk-thru.js > walk-thru.js
 
-SceneCamera.js.tmp: SceneCamera.js
+%.js.tmp: %.js
 	gsed -n '/class/,$$p' $< > $@
 
 %.js: %.ts
