@@ -18,13 +18,10 @@ class SceneCamera {
         //        camera for its perspective.
         //
 
-        // STARTER CODE: just sets the `into` direction along x,
-        //               the `right` direction along y, and the
-        //               `up` direction along z. 
         this.center = center;
-        this.right  = new Vector3d( 0.0,-1.0, 0.0);
-        this.up     = new Vector3d( 0.0, 0.0, 1.0);
-        this.into   = new Vector3d( 1.0, 0.0, 0.0);
+        this.into = towards.unit();
+        this.right = this.into.cross(upward.unit())
+        this.up = this.right.cross(this.into)
     }
 
     project(location: Point3d) {
