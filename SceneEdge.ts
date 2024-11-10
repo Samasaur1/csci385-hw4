@@ -1,5 +1,7 @@
 import { ProjectionResult } from "./SceneCamera";
-import { segmentsIntersect } from "./walk-thru-library";
+import { segmentsIntersect as _SI } from "./walk-thru-library";
+
+const segmentsIntersect = _SI;
 
 class SceneEdge {
     start: ProjectionResult;
