@@ -1,4 +1,4 @@
-all: walk-thru-library.js
+all: walk-thru-library.js walk-thru
 	git restore geometry-3d.js
 	git restore geometry-2d.js
 
@@ -19,3 +19,4 @@ clean:
 	-rm *.js.tmp
 	git restore geometry-3d.js
 	git restore geometry-2d.js
+	-rm walk-thru.js
