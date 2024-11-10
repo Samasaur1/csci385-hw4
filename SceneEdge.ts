@@ -1,13 +1,12 @@
-import { Point2d } from "./geometry-2d";
-import { Point3d } from "./geometry-3d";
 import { ProjectionResult } from "./SceneCamera";
+import { segmentsIntersect } from "./walk-thru-library";
 
 class SceneEdge {
     start: ProjectionResult;
     end: ProjectionResult;
     faces: Face[];
 
-    constructor(pj0: any, pj1: any, fs: Face[]) {
+    constructor(pj0: ProjectionResult, pj1: ProjectionResult, fs: Face[]) {
         //
         // new SceneEdge(pj0, pj1, fs)
         //
@@ -22,7 +21,17 @@ class SceneEdge {
         this.faces = fs;
     }
     
-    breakpoints(edges): number[] {
+    breakpoints(edges: SceneEdge[]): number[] {
+        return edges
+            .map((other) => segmentsIntersect(
+                this.start.projection,
+                this.end.projection,
+                other.start.projection,
+                other.end.projection
+            )
+            )
+        .filter((res) => res !== null)
+        .concat([0, 1])
         
         // Figure out what edges cross this segment. Records a
         // fractional value (from 0.0 to 1.0) locating each crossing
@@ -57,7 +66,7 @@ class SceneEdge {
         return true;
     }
         
-    draw(document, camera, segments, objects) {
+    draw(document, camera: SceneCamera, segments: SceneEdge[], objects: SceneObject[]) {
         //
         // Draw the edge but by showing only its segments that aren't
         // hidden by object facets in the scene.
@@ -68,10 +77,10 @@ class SceneEdge {
         // when looking through this camera.
         const crossings = this.breakpoints(segments);
 
-        const p0: Point3d = this.start.point;
-        const p1: Point3d  = this.end.point;
-        const pp0: Point2d = this.start.projection;
-        const pp1: Point2d = this.end.projection;
+        const p0 = this.start.point;
+        const p1 = this.end.point;
+        const pp0 = this.start.projection;
+        const pp1 = this.end.projection;
 
         // TO DO: go through each of the segments of the edge, as
         //        defined by the breakpoints made by crossing edges.

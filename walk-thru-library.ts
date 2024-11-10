@@ -130,3 +130,4 @@ function rayFacetIntersect(Q1: Point3d, Q2: Point3d, Q3: Point3d, R: Point3d, Rp
     return {point:S, distance:S.dist(R)};
 }    
 
+export { segmentsIntersect, rayFacetIntersect }
