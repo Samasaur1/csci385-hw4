@@ -291,45 +291,7 @@ class WalkThru {
     }
 }
 
-class SceneCamera {
-    //
-    // new SceneCamera(center, towards, upward)
-    //
-    // Represents the parameters of a 2-D snapshot of a 3-D scene.
-    // This yields a perspective projection of a camera looking at
-    // the scene in a direction `towards`, from the given `center` of
-    // projection, with an orientation that puts a certain direction
-    // `upward`.
-    // 
-    // Underlying the `Camera` object is an orthonormal frame whose
-    // origin sits at `center`, and whose axes are `right`, `up`, and
-    // `into`. This is a *left-handed* system. The vectors `right` and
-    // `up` form a basis for the projection onto the virtual
-    // film/screen/paper.  The `into` vector points towards/into
-    // the scene.
-    //
-    constructor(center, towards, upward) {
-        //
-        // Constructs a left-handed orthonormal frame for projection.
-
-        // STEP 1
-        //
-        // TO DO: figure out an orthonormal frame that gives the
-        //        center of focus along with the orientation of the
-        //        camera for its perspective.
-        //
-
-        // STARTER CODE: just sets the `into` direction along x,
-        //               the `right` direction along y, and the
-        //               `up` direction along z. 
-        this.center = center;
-        this.right  = new Vector2d( 0.0,-1.0, 0.0);
-        this.up     = new Vector2d( 0.0, 0.0, 1.0);
-        this.into   = new Vector2d( 1.0, 0.0, 0.0);
-    }
-
-    project(location) {}
-}
+class SceneCamera {}
 
 class SceneObject extends CGObject {
     
