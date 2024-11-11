@@ -64,7 +64,7 @@ export class SceneEdge {
         return crossings;
     }
 
-    isSegmentVisible(breakpointA: Point3d, breakpointB: Point3d, camera: SceneCamera, objects: SceneObject[]) {
+    isSegmentVisible(breakpointA: Point3d, breakpointB: Point3d, camera: SceneCamera, objects: SceneObject[]): boolean {
 
         // TO DO:
         //
@@ -110,6 +110,24 @@ export class SceneEdge {
         const pp0 = this.start.projection;
         const pp1 = this.end.projection;
 
+        crossings.sort();
+
+        for (let i = 0; i < crossings.length - 1; i++) {
+            let first = p0.combo(crossings[i], p1);
+            let second = p0.combo(crossings[i + 1], p1);
+
+            let visible = this.isSegmentVisible(first, second, camera, objects);
+
+            if (!visible) { continue }
+
+            const pdfPoint0 = toPDFcoord(pp0.combo(crossings[i], pp1));
+            const pdfPoint1 = toPDFcoord(pp0.combo(crossings[i+1], pp1));
+
+            document.line(pdfPoint0.x, pdfPoint0.y, pdfPoint1.x, pdfPoint1.y);
+            document.circle(pdfPoint0.x, pdfPoint0.y, 0.35, "F");
+            document.circle(pdfPoint1.x, pdfPoint1.y, 0.35, "F");
+        }
+
         // TO DO: go through each of the segments of the edge, as
         //        defined by the breakpoints made by crossing edges.
         //        If the segment is visible (isn't obscured by some
@@ -117,14 +135,14 @@ export class SceneEdge {
 
         // STARTER CODE: just draws the whole edge and its endpoints.
 
-        const ppdf0 = toPDFcoord(pp0);
-        const ppdf1 = toPDFcoord(pp1);        
-        document.setLineWidth(0.125);
-        document.setDrawColor(gIncludedColor.r,
-                              gIncludedColor.g,
-                              gIncludedColor.b);
-        document.line(ppdf0.x, ppdf0.y, ppdf1.x, ppdf1.y);
-        document.circle(ppdf0.x, ppdf0.y, 0.35, "F");
-        document.circle(ppdf1.x, ppdf1.y, 0.35, "F");
+        // const ppdf0 = toPDFcoord(pp0);
+        // const ppdf1 = toPDFcoord(pp1);        
+        // document.setLineWidth(0.125);
+        // document.setDrawColor(gIncludedColor.r,
+        //                       gIncludedColor.g,
+        //                       gIncludedColor.b);
+        // document.line(ppdf0.x, ppdf0.y, ppdf1.x, ppdf1.y);
+        // document.circle(ppdf0.x, ppdf0.y, 0.35, "F");
+        // document.circle(ppdf1.x, ppdf1.y, 0.35, "F");
     }        
 }
