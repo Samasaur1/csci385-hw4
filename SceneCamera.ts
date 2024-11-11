@@ -5,7 +5,7 @@ const Point2d = _Point2d
 
 export type ProjectionResult = { point: Point3d, projection: _Point2d, depth: number }
 
-class SceneCamera {
+export class SceneCamera {
     center: Point3d;
     right: Vector3d;
     up: Vector3d;

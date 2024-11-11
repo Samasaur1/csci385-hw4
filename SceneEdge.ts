@@ -1,9 +1,16 @@
-import { ProjectionResult } from "./SceneCamera";
-import { segmentsIntersect as _SI } from "./walk-thru-library";
+import { Point3d } from "./geometry-3d";
+import { SceneCamera, ProjectionResult } from "./SceneCamera";
+import { segmentsIntersect as _SI, rayFacetIntersect as _RFI } from "./walk-thru-library";
+import { Face } from "./cg-object";
+import { SceneObject } from "./SceneObject";
+import { Point2d } from "./geometry-2d";
 
 const segmentsIntersect = _SI;
+const rayFacetIntersect = _RFI;
+type XY = {x: number, y: number}
+const toPDFcoord = (x: Point2d): XY => { return x }
 
-class SceneEdge {
+export class SceneEdge {
     start: ProjectionResult;
     end: ProjectionResult;
     faces: Face[];
@@ -55,7 +62,7 @@ class SceneEdge {
         return crossings;
     }
 
-    isSegmentVisible(breakpointA, breakpointB, camera, objects) {
+    isSegmentVisible(breakpointA: Point3d, breakpointB: Point3d, camera: SceneCamera, objects: SceneObject[]) {
 
         // TO DO:
         //

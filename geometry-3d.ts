@@ -14,6 +14,8 @@
 //
 
 const EPSILON3D = 0.00000001;
+const glVertex3f = (_x: number, _y: number, _z: number) => {}
+const glNormal3f = (_x: number, _y: number, _z: number) => {}
 
 // class Point3d
 //
@@ -24,7 +26,7 @@ class Point3d {
     y: number;
     z: number;
 
-    constructor(_x,_y,_z) {
+    constructor(_x: number, _y: number, _z: number) {
         /*
          * Construct a new point instance from its coordinates.
          */
@@ -77,21 +79,21 @@ class Point3d {
         }
     }
 
-    dist2(other) {
+    dist2(other: Point3d): number {
         /*
          * Computes the squared distance between this and other.
          */
         return this.minus(other).norm2();
     }
 
-    dist(other) {
+    dist(other: Point3d): number {
         /*
          * Computes the distance between this and other.
          */
         return this.minus(other).norm();
     }
 
-    combo(scalar: number, other) {
+    combo(scalar: number, other: Point3d): Point3d {
         /*
          * Computes the affine combination of this with other
          * according to
@@ -101,11 +103,11 @@ class Point3d {
         return this.plus(other.minus(this).times(scalar));
     }
 
-    combos(scalars,others) {
+    combos(scalars: number[], others: Point3d[]): Point3d {
         /*
          * Computes the affine combination of this with other.
          */
-        let P = this;
+        let P: Point3d = this;
         const n = Math.min(scalars.length,others.length);
         for (let i = 0; i < n; i++) {
             P = P.plus(others[i].minus(this).times(scalars[i]));
@@ -148,7 +150,7 @@ class Vector3d {
     dy: number;
     dz: number;
 
-    constructor(_dx,_dy,_dz) {
+    constructor(_dx: number, _dy: number, _dz: number) {
         /*
          * Construct a new vector instance.
          */

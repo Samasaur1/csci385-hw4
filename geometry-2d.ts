@@ -23,7 +23,7 @@ class Point2d {
     x: number;
     y: number;
 
-    constructor(_x,_y) {
+    constructor(_x: number, _y: number) {
         //
         // Construct a new point instance from its coordinates.
         //
@@ -65,21 +65,21 @@ class Point2d {
         }
     }
 
-    dist2(other) {
+    dist2(other: Point2d): number {
         //
         // Computes the squared distance between this and other.
         //
         return this.minus(other).norm2();
     }
 
-    dist(other) {
+    dist(other: Point2d): number {
         //
         // Computes the distance between this and other.
         //
         return this.minus(other).norm();
     }
     
-    combo(scalar: number,other) {
+    combo(scalar: number, other: Point2d): Point2d {
         //
         // Computes the affine combination of this with other.
         //
@@ -87,11 +87,11 @@ class Point2d {
 
     }
 
-    combos(scalars,others) {
+    combos(scalars: number[], others: Point2d[]): Point2d {
         //
         // Computes the affine combination of this with other.
         //
-        let P = this;
+        let P: Point2d = this;
         const n = Math.min(scalars.length,others.length);
         for (let i = 0; i < n; i++) {
             P = P.plus(others[i].minus(this).times(scalars[i]));
@@ -132,7 +132,7 @@ class Vector2d {
     dx: number;
     dy: number;
 
-    constructor(_dx,_dy) {
+    constructor(_dx: number, _dy: number) {
         //
         // Construct a new vector instance.
         //
