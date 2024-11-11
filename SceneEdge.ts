@@ -1,14 +1,16 @@
-import { Point3d } from "./geometry-3d";
+import { Point3d } from "./_geometry-3d";
 import { SceneCamera, ProjectionResult } from "./SceneCamera";
 import { segmentsIntersect as _SI, rayFacetIntersect as _RFI } from "./walk-thru-library";
-import { Face } from "./cg-object";
+import { Face } from "./_cg-object";
 import { SceneObject } from "./SceneObject";
-import { Point2d } from "./geometry-2d";
+import { Point2d } from "./_geometry-2d";
 
 const segmentsIntersect = _SI;
 const rayFacetIntersect = _RFI;
 type XY = {x: number, y: number}
 const toPDFcoord = (x: Point2d): XY => { return x }
+type jsPDF = any;
+const gIncludedColor = {r: 0, g: 0, b: 0};
 
 export class SceneEdge {
     start: ProjectionResult;
@@ -92,7 +94,7 @@ export class SceneEdge {
         return true;
     }
         
-    draw(document, camera: SceneCamera, segments: SceneEdge[], objects: SceneObject[]) {
+    draw(document: jsPDF, camera: SceneCamera, segments: SceneEdge[], objects: SceneObject[]) {
         //
         // Draw the edge but by showing only its segments that aren't
         // hidden by object facets in the scene.

@@ -1,8 +1,6 @@
 TSCFLAGS=-t esnext -m none
 
 all: walk-thru-library.js walk-thru
-	git restore geometry-3d.js
-	git restore geometry-2d.js
 
 walk-thru: SceneCamera.js.tmp SceneEdge.js.tmp
 	gsed -e '/class SceneCamera/{r SceneCamera.js.tmp' -e 'd}' -e '/class SceneEdge/{r SceneEdge.js.tmp' -e 'd}' _walk-thru.js > walk-thru.js
@@ -16,9 +14,11 @@ walk-thru: SceneCamera.js.tmp SceneEdge.js.tmp
 .PHONY: clean
 
 clean:
-	-rm walk-thru-library.js
-	-rm SceneCamera.js
 	-rm *.js.tmp
+	-rm SceneCamera.js
+	-rm SceneObject.js
+	-rm _cg-object.js
+	-rm _geometry-2d.js
+	-rm _geometry-3d.js
+	-rm walk-thru-library.js
 	-rm walk-thru.js
-	git restore geometry-3d.js
-	git restore geometry-2d.js

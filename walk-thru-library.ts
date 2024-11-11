@@ -12,7 +12,7 @@
 // other object.
 //
 
-import { Point3d, Vector3d } from "./geometry-3d"
+import { Point3d, Vector3d } from "./_geometry-3d"
 
 function segmentsIntersect(P0,P1,Q0,Q1) {
     //

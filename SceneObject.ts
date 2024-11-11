@@ -1,4 +1,4 @@
-import { CGObject, PlacementType } from "./cg-object";
+import { CGObject, PlacementType } from "./_cg-object";
 import { SceneCamera } from "./SceneCamera";
 import { SceneEdge } from "./SceneEdge";
 

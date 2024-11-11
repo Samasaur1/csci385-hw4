@@ -21,7 +21,7 @@
 //         faces on the surface.
 //
 
-import { Point3d, Vector3d, ORIGIN3D } from "./geometry-3d";
+import { Point3d, Vector3d, ORIGIN3D } from "./_geometry-3d";
 
 //
 // class Edge

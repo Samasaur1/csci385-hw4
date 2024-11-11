@@ -1,5 +1,5 @@
-import { Point3d, Vector3d } from "./geometry-3d"
-import { Point2d as _Point2d, Vector2d } from "./geometry-2d"
+import { Point3d, Vector3d } from "./_geometry-3d"
+import { Point2d as _Point2d, Vector2d } from "./_geometry-2d"
 
 const Point2d = _Point2d
 
