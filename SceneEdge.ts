@@ -71,6 +71,23 @@ export class SceneEdge {
         // when viewed from the perspective of the given `camera`.
         //
 
+        const midpoint = breakpointA.combo(0.5, breakpointB);
+        const realDistance = camera.center.dist(midpoint);
+
+        for (const object of objects) {
+            for (const face of object.faces) {
+                let p1 = face.vertex(0)!.position
+                let p2 = face.vertex(1)!.position
+                let p3 = face.vertex(2)!.position
+                var rfi = rayFacetIntersect(p1, p2, p3, camera.center, midpoint)
+                if (rfi !== null) {
+                    if (rfi.distance < realDistance) {
+                        return false;
+                    }
+                }
+            }
+        }
+
         // STARTER CODE: just says all edge segments are visible.
         return true;
     }
