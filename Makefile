@@ -6,7 +6,7 @@ walk-thru: SceneCamera.js.tmp SceneEdge.js.tmp
 	gsed -e '/class SceneCamera/{r SceneCamera.js.tmp' -e 'd}' -e '/class SceneEdge/{r SceneEdge.js.tmp' -e 'd}' _walk-thru.js > walk-thru.js
 
 %.js.tmp: %.js
-	gsed -n '/class/,$$p' $< > $@
+	gsed -n -e '/exports/d' -e '/class/,$$p' $< > $@
 
 %.js: %.ts
 	-tsc $(TSCFLAGS) $<
