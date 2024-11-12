@@ -12,9 +12,10 @@
 // other object.
 //
 
-import { Point3d, Vector3d } from "./_geometry-3d"
+import { Point3d } from "./_geometry-3d"
+import { Point2d } from "./_geometry-2d"
 
-function segmentsIntersect(P0,P1,Q0,Q1) {
+function segmentsIntersect(P0: Point2d, P1: Point2d, Q0: Point2d, Q1: Point2d) {
     //
     // Determine whether two 2-D line segments intersect. The first
     // segment runs between points P0 and P1. The second segment runs
@@ -32,18 +33,16 @@ function segmentsIntersect(P0,P1,Q0,Q1) {
     // TO DO: compute the whether the segments intersect
     //
     
-    var u = Q1.minus(Q0).unit()
-    var v = u.perp()
+    var u = Q1.minus(Q0).unit();
+    var v = u.perp();
 
-    var O = Q0
+    var O = Q0;
 
     // Now we have a coordinate scheme where Q0 is the origin, +x is towards Q1 and +y is 90 degrees offset
     // (it doesn't actually matter if +y is up or down)
 
-    var x0 = P0.minus(O).dot(u)
-    var x1 = P1.minus(O).dot(u)
-    var y0 = P0.minus(O).dot(v)
-    var y1 = P1.minus(O).dot(v)
+    var y0 = P0.minus(O).dot(v);
+    var y1 = P1.minus(O).dot(v);
 
     if (y0 * y1 > 0) {
         // The signs are the same, which means the line segment P is entirely on one side of Q,
@@ -69,17 +68,17 @@ function segmentsIntersect(P0,P1,Q0,Q1) {
     */
 
     // Instead compute y0 and y1 again, but using P0 as the origin instead of Q0
-    u = P1.minus(P0).unit()
-    v = u.perp()
+    u = P1.minus(P0).unit();
+    v = u.perp();
 
-    O = P0
+    O = P0;
 
-    y0 = Q0.minus(O).dot(v)
-    y1 = Q1.minus(O).dot(v)
+    y0 = Q0.minus(O).dot(v);
+    y1 = Q1.minus(O).dot(v);
 
     if (y0 * y1 > 0) { return null }
 
-    return s
+    return s;
 }
 
 function rayFacetIntersect(Q1: Point3d, Q2: Point3d, Q3: Point3d, R: Point3d, Rp: Point3d) {

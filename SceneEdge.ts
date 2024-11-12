@@ -42,6 +42,7 @@ export class SceneEdge {
             )
             )
         .filter((res) => res !== null)
+        .filter((res) => !Number.isNaN(res))
         .concat([0, 1])
         
         // Figure out what edges cross this segment. Records a
@@ -78,6 +79,8 @@ export class SceneEdge {
 
         for (const object of objects) {
             for (const face of object.faces) {
+                if (this.faces.includes(face)) { continue }
+
                 let p1 = face.vertex(0)!.position
                 let p2 = face.vertex(1)!.position
                 let p3 = face.vertex(2)!.position
@@ -112,20 +115,31 @@ export class SceneEdge {
 
         crossings.sort();
 
+        document.setLineWidth(0.125);
+
         for (let i = 0; i < crossings.length - 1; i++) {
             let first = p0.combo(crossings[i], p1);
             let second = p0.combo(crossings[i + 1], p1);
 
             let visible = this.isSegmentVisible(first, second, camera, objects);
 
+            // console.log("segment (" + crossings[i] + ", " + crossings[i+1] + "), baseIndex: " + i + ", visible: " + visible);
+
             if (!visible) { continue }
 
             const pdfPoint0 = toPDFcoord(pp0.combo(crossings[i], pp1));
             const pdfPoint1 = toPDFcoord(pp0.combo(crossings[i+1], pp1));
 
+            if (visible) {
+                document.setDrawColor(gIncludedColor.r,
+                    gIncludedColor.g,
+                    gIncludedColor.b);
+            } else {
+                document.setDrawColor(255, 200, 200);
+            }
             document.line(pdfPoint0.x, pdfPoint0.y, pdfPoint1.x, pdfPoint1.y);
-            document.circle(pdfPoint0.x, pdfPoint0.y, 0.35, "F");
-            document.circle(pdfPoint1.x, pdfPoint1.y, 0.35, "F");
+            // document.circle(pdfPoint0.x, pdfPoint0.y, 0.35, "F");
+            // document.circle(pdfPoint1.x, pdfPoint1.y, 0.35, "F");
         }
 
         // TO DO: go through each of the segments of the edge, as
