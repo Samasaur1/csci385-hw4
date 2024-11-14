@@ -76,12 +76,7 @@ const TEAL = {r:0, g:75, b:125};
 const gIncludedColor = BLACK;
 const gExcludedColor = null; /* or could make PINK */
 
-class Shot {
-    constructor(position0, direction0) {
-        this.position = position0;
-        this.direction = direction0;
-    }
-}
+class Shot {}
 
 class Placement {
     //
