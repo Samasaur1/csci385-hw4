@@ -50,8 +50,8 @@ export class SceneObject extends CGObject {
         }
     }
     
-    projectEdges(camera: SceneCamera) {
-        const segments = []
+    projectEdges(camera: SceneCamera): SceneEdge[] {
+        const segments: SceneEdge[] = []
         for (let e of this.allEdges()) {
             //
             const v0 = e.vertex(0); // source vertex
