@@ -11,9 +11,7 @@ export class Shot {
 
     combo(scalar: number, other: Shot): Shot {
         const newPosition = this.position.combo(scalar, other.position);
-
-        // I don't even need to scale this, since only the direction matters
-        const newDirection = this.direction.plus(other.direction).div(2);
+        const newDirection = this.direction.unit().times(scalar).plus(other.direction.unit().times(scalar)).unit();
 
         return new Shot(newPosition, newDirection);
     }
