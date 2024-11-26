@@ -28,12 +28,31 @@ class WalkThru {
         this.placements = [];
     }
 
+    smooth_shots(): _Shot[] {
+        let currentShots: _Shot[] = this.shots;
+
+        const SMOOTH_ROUNDS = 4;
+
+        for (let round = 0; round < SMOOTH_ROUNDS; round++) {
+            let newShots: _Shot[] = [];
+            for (let i = 0; i < currentShots.length - 1; i++) {
+                const first = currentShots[i];
+                const second = currentShots[i + 1];
+
+                newShots.push(first.combo(0.25, second), first.combo(0.75, second));
+            }
+            currentShots = newShots;
+        }
+
+        return currentShots;
+    }
+
     toPDF(document, startNewPage) {
         //
         // Make all the cameras from the walk-through's shots.
         //
         const cameras: _SceneCamera[] = [];
-        for (let shot of this.shots) {
+        for (let shot of this.smooth_shots()) {
             // Performs STEP 1.
             const camera = new SceneCamera(shot.position,
                                            shot.direction,

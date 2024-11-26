@@ -728,9 +728,11 @@ function drawCameraPath() {
     const cc = CAMERA_COLOR;
     const occ = OFF_CAMERA_COLOR;
     const pc = WALKTHRU_COLOR;
-    for (let index = 1; index < gWalkThru.shots.length; index++) {
-        const shot0 = gWalkThru.shots[index-1];
-        const shot1 = gWalkThru.shots[index];
+
+    const smooth_shots = gWalkThru.smooth_shots();
+    for (let index = 1; index < smooth_shots.length; index++) {
+        const shot0 = smooth_shots[index-1];
+        const shot1 = smooth_shots[index];
 
         //
         // Compute path line.
